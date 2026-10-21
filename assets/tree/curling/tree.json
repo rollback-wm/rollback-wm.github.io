@@ -1,0 +1,608 @@
+{
+ "task": "Push the red curling stone on the right with your right arm and the red curling stone on the left with your left arm, landing the red stones in the target area while knocking the blue curling stones out of the target area as much as possible.",
+ "episode": "data_curling_ep738",
+ "nodes": [
+  {
+   "id": 0,
+   "parent": null,
+   "depth": 0,
+   "real": true,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    0,
+    0
+   ],
+   "clip": null,
+   "poster": "n00.jpg"
+  },
+  {
+   "id": 1,
+   "parent": 0,
+   "depth": 1,
+   "real": true,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    0,
+    50
+   ],
+   "clip": "n01.mp4",
+   "poster": "n01.jpg"
+  },
+  {
+   "id": 2,
+   "parent": 0,
+   "depth": 1,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    0,
+    50
+   ],
+   "clip": "n02.mp4",
+   "poster": "n02.jpg"
+  },
+  {
+   "id": 3,
+   "parent": 0,
+   "depth": 1,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    0,
+    50
+   ],
+   "clip": "n03.mp4",
+   "poster": "n03.jpg"
+  },
+  {
+   "id": 4,
+   "parent": 1,
+   "depth": 2,
+   "real": true,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n04.mp4",
+   "poster": "n04.jpg"
+  },
+  {
+   "id": 5,
+   "parent": 1,
+   "depth": 2,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n05.mp4",
+   "poster": "n05.jpg"
+  },
+  {
+   "id": 6,
+   "parent": 1,
+   "depth": 2,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n06.mp4",
+   "poster": "n06.jpg"
+  },
+  {
+   "id": 7,
+   "parent": 2,
+   "depth": 2,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n07.mp4",
+   "poster": "n07.jpg"
+  },
+  {
+   "id": 8,
+   "parent": 2,
+   "depth": 2,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n08.mp4",
+   "poster": "n08.jpg"
+  },
+  {
+   "id": 9,
+   "parent": 3,
+   "depth": 2,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n09.mp4",
+   "poster": "n09.jpg"
+  },
+  {
+   "id": 10,
+   "parent": 3,
+   "depth": 2,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    50,
+    100
+   ],
+   "clip": "n10.mp4",
+   "poster": "n10.jpg"
+  },
+  {
+   "id": 11,
+   "parent": 4,
+   "depth": 3,
+   "real": true,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n11.mp4",
+   "poster": "n11.jpg"
+  },
+  {
+   "id": 12,
+   "parent": 5,
+   "depth": 3,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n12.mp4",
+   "poster": "n12.jpg"
+  },
+  {
+   "id": 13,
+   "parent": 6,
+   "depth": 3,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n13.mp4",
+   "poster": "n13.jpg"
+  },
+  {
+   "id": 14,
+   "parent": 7,
+   "depth": 3,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n14.mp4",
+   "poster": "n14.jpg"
+  },
+  {
+   "id": 15,
+   "parent": 8,
+   "depth": 3,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n15.mp4",
+   "poster": "n15.jpg"
+  },
+  {
+   "id": 16,
+   "parent": 9,
+   "depth": 3,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n16.mp4",
+   "poster": "n16.jpg"
+  },
+  {
+   "id": 17,
+   "parent": 10,
+   "depth": 3,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    100,
+    150
+   ],
+   "clip": "n17.mp4",
+   "poster": "n17.jpg"
+  },
+  {
+   "id": 18,
+   "parent": 11,
+   "depth": 4,
+   "real": true,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n18.mp4",
+   "poster": "n18.jpg"
+  },
+  {
+   "id": 19,
+   "parent": 12,
+   "depth": 4,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n19.mp4",
+   "poster": "n19.jpg"
+  },
+  {
+   "id": 20,
+   "parent": 13,
+   "depth": 4,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n20.mp4",
+   "poster": "n20.jpg"
+  },
+  {
+   "id": 21,
+   "parent": 14,
+   "depth": 4,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n21.mp4",
+   "poster": "n21.jpg"
+  },
+  {
+   "id": 22,
+   "parent": 15,
+   "depth": 4,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n22.mp4",
+   "poster": "n22.jpg"
+  },
+  {
+   "id": 23,
+   "parent": 16,
+   "depth": 4,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n23.mp4",
+   "poster": "n23.jpg"
+  },
+  {
+   "id": 24,
+   "parent": 17,
+   "depth": 4,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    150,
+    200
+   ],
+   "clip": "n24.mp4",
+   "poster": "n24.jpg"
+  },
+  {
+   "id": 25,
+   "parent": 18,
+   "depth": 5,
+   "real": true,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n25.mp4",
+   "poster": "n25.jpg"
+  },
+  {
+   "id": 26,
+   "parent": 18,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n26.mp4",
+   "poster": "n26.jpg"
+  },
+  {
+   "id": 27,
+   "parent": 18,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n27.mp4",
+   "poster": "n27.jpg"
+  },
+  {
+   "id": 28,
+   "parent": 19,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n28.mp4",
+   "poster": "n28.jpg"
+  },
+  {
+   "id": 29,
+   "parent": 20,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n29.mp4",
+   "poster": "n29.jpg"
+  },
+  {
+   "id": 30,
+   "parent": 21,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n30.mp4",
+   "poster": "n30.jpg"
+  },
+  {
+   "id": 31,
+   "parent": 22,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n31.mp4",
+   "poster": "n31.jpg"
+  },
+  {
+   "id": 32,
+   "parent": 23,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n32.mp4",
+   "poster": "n32.jpg"
+  },
+  {
+   "id": 33,
+   "parent": 24,
+   "depth": 5,
+   "real": false,
+   "leaf": false,
+   "success": null,
+   "steps": [
+    200,
+    250
+   ],
+   "clip": "n33.mp4",
+   "poster": "n33.jpg"
+  },
+  {
+   "id": 34,
+   "parent": 25,
+   "depth": 6,
+   "real": true,
+   "leaf": true,
+   "success": true,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n34.mp4",
+   "poster": "n34.jpg"
+  },
+  {
+   "id": 35,
+   "parent": 26,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n35.mp4",
+   "poster": "n35.jpg"
+  },
+  {
+   "id": 36,
+   "parent": 27,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n36.mp4",
+   "poster": "n36.jpg"
+  },
+  {
+   "id": 37,
+   "parent": 28,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n37.mp4",
+   "poster": "n37.jpg"
+  },
+  {
+   "id": 38,
+   "parent": 29,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n38.mp4",
+   "poster": "n38.jpg"
+  },
+  {
+   "id": 39,
+   "parent": 30,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": true,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n39.mp4",
+   "poster": "n39.jpg"
+  },
+  {
+   "id": 40,
+   "parent": 31,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n40.mp4",
+   "poster": "n40.jpg"
+  },
+  {
+   "id": 41,
+   "parent": 32,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n41.mp4",
+   "poster": "n41.jpg"
+  },
+  {
+   "id": 42,
+   "parent": 33,
+   "depth": 6,
+   "real": false,
+   "leaf": true,
+   "success": false,
+   "steps": [
+    250,
+    300
+   ],
+   "clip": "n42.mp4",
+   "poster": "n42.jpg"
+  }
+ ]
+}
