@@ -94,7 +94,13 @@
   .hero h1 .rw { background: linear-gradient(100deg, #fff 0%, var(--violet-2) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; animation: rewind 6s ease-in-out infinite; transform-origin: 50% 55%; }
   @keyframes rewind { 0%, 70%, 100% { transform: rotate(0); } 80% { transform: rotate(-360deg); } }
   .hero .subtitle { margin: 22px auto 0; max-width: 780px; font-size: clamp(19px, 2.6vw, 26px); line-height: 1.35; font-weight: 500; color: var(--ink-2); text-wrap: balance; }
-  .hero .authors { margin-top: 22px; color: var(--muted); font-size: 16px; font-weight: 500; }
+  .hero .authors { margin: 24px auto 0; max-width: 860px; color: var(--ink-2); font-size: 15.5px; font-weight: 500; line-height: 1.7; text-wrap: balance; }
+  .hero .authors span { display: inline-block; margin: 0 9px; white-space: nowrap; }
+  .hero .authors sup, .hero .affil sup { font-size: .68em; color: var(--violet-2); margin-left: 1px; }
+  .hero .affil { margin-top: 8px; color: var(--ink-2); font-size: 15px; font-weight: 600; }
+  .hero .affil span { margin: 0 10px; }
+  .hero .notes { margin-top: 6px; color: var(--muted); font-size: 12.5px; }
+  .hero .notes span { display: inline-block; margin: 0 8px; white-space: nowrap; }
   .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .btn {
     display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px; border-radius: 999px;
@@ -326,6 +332,12 @@
     <div class="eyebrow"><i></i>AgiBot Research</div>
     <h1>Roll<span class="rw">b</span>ack</h1>
     <div class="subtitle">Experience Backtracking in World Models for Policy Improvement</div>
+    <div class="authors">
+      <span>Jiayi Luo<sup>1,2,*</sup></span><span>Yang Zhang<sup>1,*</sup></span><span>Liliang Chen<sup>1,*,&dagger;</sup></span><span>Nan Wang<sup>1</sup></span><span>Chen Gao<sup>1</sup></span><span>Boxiang Qiu<sup>1,2</sup></span><span>Zhuoxuan Li<sup>1</sup></span><span>Baorui Peng<sup>1</sup></span>
+      <span>Chuankang Li<sup>1</sup></span><span>Yuxiang Yan<sup>1</sup></span><span>Si Liu<sup>2</sup></span><span>Qingyun Sun<sup>2</sup></span><span>Shuicheng Yan<sup>1</sup></span><span>Maoqing Yao<sup>1</sup></span><span>Jianxin Li<sup>2,&loz;</sup></span><span>Guanghui Ren<sup>1,&loz;</sup></span>
+    </div>
+    <div class="affil"><span><sup>1</sup>AgiBot</span><span><sup>2</sup>BUAA</span></div>
+    <div class="notes"><span>* Equal contribution</span><span>&dagger; Project leader</span><span>&loz; Corresponding author</span></div>
     <div class="links">
       <a class="btn primary" href="#search">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>See a search unfold
@@ -338,7 +350,7 @@
 
 <div class="wrap">
   <div class="stats reveal">
-    <div class="stat"><b data-count="10.44" data-prefix="+">+10.44</b><span>pts over the strongest baseline on Block Extraction</span></div>
+    <div class="stat"><b data-count="10.67" data-prefix="+">+10.67</b><span>pts over the strongest baseline on Block Extraction</span></div>
     <div class="stat"><b data-count="11.11" data-prefix="+">+11.11</b><span>pts over the strongest baseline on Ball Tossing</span></div>
     <div class="stat"><b data-count="11.85" data-prefix="+">+11.85</b><span>pts over the strongest baseline on Tabletop Curling</span></div>
     <div class="stat"><b>&gt; Human</b><span>surpasses human players on Ball Tossing and Tabletop Curling</span></div>
@@ -370,7 +382,7 @@
     <div class="reveal">
       <div class="kicker">On the real robot</div>
       <h2>Three tasks, one physical robot.</h2>
-      <p class="lead">Final Rollback policies on a dual-arm AGIBOT robot with OmniPicker grippers: contact-rich manipulation, precise dynamic control, and competitive play.</p>
+      <p class="lead">Final Rollback policies on the dual-arm AGIBOT Genie-02 robot: contact-rich manipulation, precise dynamic control, and competitive play.</p>
     </div>
     <!-- new demo footage (shoot of 10-24/25) replaces these three clips -->
     <div class="tasks">
@@ -458,7 +470,7 @@
         </div>
       </div>
     </div>
-    <p class="hint reveal">Imagined outcomes are judged by the reward model inside the world model; only the blue spine was executed on the robot.</p>
+    <p class="hint reveal">Imagined outcomes are judged by the GE-Sim 2.0 world judge (the reward model); only the blue spine was executed on the robot.</p>
   </div>
 </section>
 
@@ -528,7 +540,7 @@
           <h4>Block Extraction</h4>
           <div class="bar"><span class="lbl">SFT</span><div class="track"><div class="fill" data-w="48.67"></div></div><span class="val">48.67</span></div>
           <div class="bar"><span class="lbl">RECAP</span><div class="track"><div class="fill" data-w="56.00"></div></div><span class="val">56.00</span></div>
-          <div class="bar"><span class="lbl">RISE w/ GE-Sim2</span><div class="track"><div class="fill" data-w="58.89"></div></div><span class="val">58.89</span></div>
+          <div class="bar"><span class="lbl">RISE w/ GE-Sim2</span><div class="track"><div class="fill" data-w="58.67"></div></div><span class="val">58.67</span></div>
           <div class="bar ours"><span class="lbl">Rollback</span><div class="track"><div class="fill" data-w="69.33"></div></div><span class="val">69.33</span></div>
         </div>
         <div>
