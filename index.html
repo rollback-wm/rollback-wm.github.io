@@ -96,6 +96,8 @@
   .hero .subtitle { margin: 22px auto 0; max-width: 780px; font-size: clamp(19px, 2.6vw, 26px); line-height: 1.35; font-weight: 500; color: var(--ink-2); text-wrap: balance; }
   .hero .authors { margin: 24px auto 0; max-width: 860px; color: var(--ink-2); font-size: 15.5px; font-weight: 500; line-height: 1.7; text-wrap: balance; }
   .hero .authors span { display: inline-block; margin: 0 9px; white-space: nowrap; }
+  .hero .authors .br { display: block; }
+  @media (max-width: 760px) { .hero .authors .br { display: none; } }
   .hero .authors sup, .hero .affil sup { font-size: .68em; color: var(--violet-2); margin-left: 1px; }
   .hero .affil { margin-top: 8px; color: var(--ink-2); font-size: 15px; font-weight: 600; }
   .hero .affil span { margin: 0 10px; }
@@ -334,7 +336,7 @@
     <div class="subtitle">Experience Backtracking in World Models for Policy Improvement</div>
     <div class="authors">
       <span>Jiayi Luo<sup>1,2,*</sup></span><span>Yang Zhang<sup>1,*</sup></span><span>Liliang Chen<sup>1,*,&dagger;</sup></span><span>Nan Wang<sup>1</sup></span><span>Chen Gao<sup>2,3</sup></span><span>Boxiang Qiu<sup>1,2</sup></span><span>Zhuoxuan Li<sup>1</sup></span><span>Baorui Peng<sup>1</sup></span>
-      <span>Chuankang Li<sup>1</sup></span><span>Yuxiang Yan<sup>1</sup></span><span>Si Liu<sup>2</sup></span><span>Qingyun Sun<sup>2</sup></span><span>Shuicheng Yan<sup>3</sup></span><span>Maoqing Yao<sup>1</sup></span><span>Jianxin Li<sup>2,&loz;</sup></span><span>Guanghui Ren<sup>1,&loz;</sup></span>
+      <span>Chuankang Li<sup>1</sup></span><span>Yuxiang Yan<sup>1</sup></span><i class="br"></i><span>Si Liu<sup>2</sup></span><span>Qingyun Sun<sup>2</sup></span><span>Shuicheng Yan<sup>3</sup></span><span>Maoqing Yao<sup>1</sup></span><span>Jianxin Li<sup>2,&loz;</sup></span><span>Guanghui Ren<sup>1,&loz;</sup></span>
     </div>
     <div class="affil"><span><sup>1</sup>AgiBot</span><span><sup>2</sup>BUAA</span><span><sup>3</sup>NUS</span></div>
     <div class="notes"><span>* Equal contribution</span><span>&dagger; Project leader</span><span>&loz; Corresponding author</span></div>
