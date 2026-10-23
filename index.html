@@ -483,16 +483,16 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Why the world model must keep learning</div>
-      <h2>A frozen world model imagines successes that never happened.</h2>
+      <h2>A frozen world model drifts from reality. The co-evolved one keeps pace.</h2>
       <p class="lead">
-        We replay the recorded actions of real Tabletop Curling episodes open-loop in two world models: the frozen one we start from, and the
+        We replay the recorded actions of successful real Tabletop Curling episodes open-loop in two world models: the frozen one we start from, and the
         one co-evolved with the policy during Rollback training. Same actions, same starting frame &mdash; only the world model differs.
       </p>
     </div>
     <div class="tabs reveal" role="tablist" id="cmp-tabs">
-      <button class="tab" role="tab" aria-selected="true" data-k="262">Failed shot &middot; episode A</button>
-      <button class="tab" role="tab" aria-selected="false" data-k="354">Failed shot &middot; episode B</button>
-      <button class="tab" role="tab" aria-selected="false" data-k="559">Successful shot</button>
+      <button class="tab" role="tab" aria-selected="true" data-k="559">Episode A</button>
+      <button class="tab" role="tab" aria-selected="false" data-k="494">Episode B</button>
+      <button class="tab" role="tab" aria-selected="false" data-k="510">Episode C</button>
     </div>
     <div class="cmp reveal">
       <div class="swipe">Swipe sideways to see all three &rarr;</div>
@@ -502,7 +502,7 @@
           <div class="c2">Frozen world model<small>w/o co-evolution</small></div>
           <div class="c3">Co-evolved world model<small>Rollback</small></div>
         </div>
-        <video id="cmp-v" src="assets/video/coev/cmp_fail_262.mp4" poster="assets/video/coev/cmp_fail_262.jpg" muted loop playsinline data-autoplay></video>
+        <video id="cmp-v" src="assets/video/coev/cmp_success_559.mp4" poster="assets/video/coev/cmp_success_559.jpg" muted loop playsinline data-autoplay></video>
       </div></div>
       <p class="note" id="cmp-note"></p>
     </div>
@@ -784,9 +784,9 @@
   // ---------------------------------------------------------------- frozen vs co-evolved
   (function () {
     const NOTES = {
-      262: ['fail', 'The real stones stop short of the house. The frozen world model slides them into the house, imagining a success that never happened; the co-evolved model keeps them short, as in reality.'],
-      354: ['fail', 'The second stone actually stops in the upper lane. The frozen world model places extra stones in the house; the co-evolved model tracks the stone where it really stops.'],
-      559: ['success', 'Even on a successful shot, the frozen world model lets the first stone drift off center and brings the next stone in early; the co-evolved model stays close to the recording.'],
+      559: ['success', 'The frozen world model lets the first stone drift off center and brings the next stone in early; the co-evolved model stays close to the recording.'],
+      494: ['success', 'Both models place the first stone in the house. On the second shot the frozen model slides the stone in ahead of time, while the co-evolved model keeps it just short of the house, where the real stone is at that moment.'],
+      510: ['success', 'The co-evolved model stops the first stone on the button as in the recording, while the frozen model leaves it short; on the second shot the frozen model again runs ahead and puts the stone in the house early.'],
     };
     const v = document.getElementById('cmp-v'), note = document.getElementById('cmp-note');
     const tabs = document.querySelectorAll('#cmp-tabs .tab');
@@ -799,7 +799,7 @@
       note.textContent = text;
     }
     tabs.forEach(t => t.addEventListener('click', () => pick(t.dataset.k)));
-    note.textContent = NOTES[262][1];
+    note.textContent = NOTES[559][1];
   })();
 
   // Ball Tossing training curve (measured)
