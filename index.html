@@ -114,13 +114,13 @@
 
   /* ---------- hero ---------- */
   .hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
-  .hero-bg { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); z-index: -2; }
-  .hero-bg video { width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) brightness(.55); }
+  .hero-bg { position: absolute; inset: 0; z-index: -2; }
+  .hero-bg video { width: 100%; height: 100%; object-fit: cover; filter: brightness(.82); }
   .hero::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
     background:
-      radial-gradient(60% 50% at 50% 45%, rgba(7,6,13,.35), rgba(7,6,13,.9) 75%),
-      linear-gradient(180deg, rgba(7,6,13,.2) 0%, rgba(7,6,13,.55) 60%, var(--bg) 100%);
+      radial-gradient(45% 38% at 50% 45%, rgba(7,6,13,.5), rgba(7,6,13,.12) 100%),
+      linear-gradient(180deg, rgba(7,6,13,.25) 0%, rgba(7,6,13,0) 30%, rgba(7,6,13,.15) 70%, var(--bg) 100%);
   }
   .hero-inner { text-align: center; padding: 120px 24px 100px; }
   .eyebrow {
@@ -137,7 +137,8 @@
   }
   .hero h1 .rw { background: linear-gradient(100deg, #fff 0%, var(--violet-2) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; animation: rewind 6s ease-in-out infinite; transform-origin: 50% 55%; }
   @keyframes rewind { 0%, 70%, 100% { transform: rotate(0); } 80% { transform: rotate(-360deg); } }
-  .hero .subtitle { margin: 22px auto 0; max-width: 780px; font-size: clamp(19px, 2.6vw, 26px); line-height: 1.35; font-weight: 500; color: var(--ink-2); text-wrap: balance; }
+  .hero h1, .hero .subtitle { filter: drop-shadow(0 2px 18px rgba(0,0,0,.55)); }
+  .hero .subtitle { margin: 22px auto 0; max-width: 780px; font-size: clamp(19px, 2.6vw, 26px); line-height: 1.35; font-weight: 500; color: #fff; text-wrap: balance; }
   .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .btn {
     display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px; border-radius: 999px;
@@ -323,7 +324,6 @@
     .stats { grid-template-columns: repeat(2, 1fr); }
     .tasks, .steps, .bars, .metrics { grid-template-columns: 1fr; }
     .grid-2, .two { grid-template-columns: 1fr; }
-    .hero-bg { grid-template-columns: 1fr; grid-template-rows: repeat(3, 1fr); }
   }
   @media (max-width: 640px) {
     .topbar { padding: 10px 16px; }
@@ -383,9 +383,7 @@
 <!-- ======================= HERO ======================= -->
 <div class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
-    <video src="assets/video/success_block.mp4" poster="assets/video/success_block.jpg" autoplay muted loop playsinline></video>
-    <video src="assets/video/success_throw.mp4" poster="assets/video/success_throw.jpg" autoplay muted loop playsinline></video>
-    <video src="assets/video/success_curling.mp4" poster="assets/video/success_curling.jpg" autoplay muted loop playsinline></video>
+    <video src="assets/video/hero.mp4" poster="assets/video/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
   </div>
   <div class="hero-inner">
     <div class="eyebrow"><i></i>AgiBot Research</div>
