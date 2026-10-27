@@ -800,14 +800,15 @@
       if (ti >= TOUR.length) { svg.classList.remove('dim'); timer = setTimeout(startTour, 2500); return; }
       const s = TOUR[ti];
       if (tj === 0 && s.at != null) { markSeen(s.at); }
-      // nodes without a clip are still frames (the real-world spine): reveal them all at once instead of one by one
-      while (tj < s.ids.length - 1 && !N[s.ids[tj]].clip) {
+      // the real-world spine is (nearly) still frames: reveal it all at once and move on quickly
+      const still = k => !N[k].clip || N[k].real;
+      while (tj < s.ids.length - 1 && still(s.ids[tj])) {
         const k0 = s.ids[tj]; path(k0).forEach(k => { if (N[k].real || seen.has(k) || k === k0) markSeen(k); }); tj++;
       }
       const id = s.ids[tj];
       path(id).forEach(k => { if (N[k].real || seen.has(k) || k === id) markSeen(k); });
       show(id, s.say, false);
-      if (!N[id].clip) { timer = setTimeout(advance, 1200); }
+      if (still(id)) { tv.pause(); timer = setTimeout(advance, 600); }
     }
     function advance() { if (!touring) return; tj++; if (tj >= TOUR[ti].ids.length) { ti++; tj = 0; timer = setTimeout(stepTour, 500); } else stepTour(); }
     tv.addEventListener('ended', () => { if (touring) advance(); });
