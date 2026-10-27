@@ -803,10 +803,10 @@
       const id = s.ids[tj];
       path(id).forEach(k => { if (N[k].real || seen.has(k) || k === id) markSeen(k); });
       show(id, s.say, false); rate(1);
-      // the real-world spine flashes past: only each node's first frame, 0.15 s apiece
+      // the real-world spine flashes past: only each node's first frame, 0.3 s apiece
       if (N[id].real || !N[id].clip) {
         tv.pause(); tv.style.visibility = 'hidden';
-        timer = setTimeout(advance, N[id].real ? 150 : 300);
+        timer = setTimeout(advance, 300);
       }
     }
     function advance() { if (!touring) return; tj++; if (tj >= TOUR[ti].ids.length) { ti++; tj = 0; timer = setTimeout(stepTour, 500); } else stepTour(); }
