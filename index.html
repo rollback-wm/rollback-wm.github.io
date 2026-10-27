@@ -391,7 +391,8 @@
     <h1>Roll<span class="rw">b</span>ack</h1>
     <div class="subtitle">Experience Backtracking in World Models for Policy Improvement</div>
     <div class="links">
-      <span class="btn off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Paper <small>&middot; arXiv soon</small></span>
+      <span class="btn off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Paper <small>&middot; coming soon</small></span>
+      <span class="btn off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>Code <small>&middot; coming soon</small></span>
     </div>
   </div>
   <div class="scroll-cue">Scroll<span></span></div>
@@ -403,21 +404,20 @@
     <div class="stat"><b data-count="10.67" data-prefix="+">+10.67</b><span>pts over the strongest baseline on Block Extraction</span></div>
     <div class="stat"><b data-count="11.11" data-prefix="+">+11.11</b><span>pts over the strongest baseline on Ball Tossing</span></div>
     <div class="stat"><b data-count="11.85" data-prefix="+">+11.85</b><span>pts over the strongest baseline on Tabletop Curling</span></div>
-    <div class="stat"><b>&gt; Human</b><span>surpasses human players on Ball Tossing and Tabletop Curling</span></div>
+    <div class="stat"><b>&gt; Human</b><span>above the human average on Ball Tossing and Tabletop Curling</span></div>
   </div>
 </div>
 
 <!-- ======================= 1. IDEA ======================= -->
 <section id="abstract">
   <div class="wrap narrow reveal">
-    <div class="kicker">The idea</div>
-    <h2>World models can do something the real world cannot: <span class="grad">rewind.</span></h2>
+    <div class="kicker">Core idea</div>
+    <h2>Going back in a <span class="grad">world model</span></h2>
     <p class="lead">
-      Existing world&#8209;model&#8209;based methods treat world models as forward&#8209;only surrogates of the physical environment.
-      Rollback turns them into counterfactual engines: it rolls back to critical decision points, branches into alternative actions,
-      and contrasts their outcomes to attribute success to individual decisions. This concentrates simulation where it matters most and
-      distills counterfactual outcomes into fine&#8209;grained, action&#8209;level supervision without a separately learned value model.
-      Real&#8209;world experience keeps sharpening the world model, and a sharper world model drives further policy improvement.
+      Most world&#8209;model&#8209;based methods only run the world model forward, the same way a real robot runs.
+      A world model can also go back. Rollback returns to earlier decision points of real and simulated attempts, tries other actions from there,
+      and compares how they end. The comparison tells which actions were better, without training a value model.
+      Data from the real robot is used along the way to keep correcting the world model.
     </p>
   </div>
   <div class="wrap reveal">
@@ -429,9 +429,9 @@
 <section id="results">
   <div class="wrap">
     <div class="reveal">
-      <div class="kicker">On the real robot</div>
-      <h2>Three real&#8209;world tasks.</h2>
-      <p class="lead">Final Rollback policies on the dual&#8209;arm AGIBOT Genie&#8209;02 robot: contact&#8209;rich manipulation, precise dynamic control, and competitive play.</p>
+      <div class="kicker">Tasks</div>
+      <h2>Three real&#8209;world tasks</h2>
+      <p class="lead">All tasks run on the dual&#8209;arm AGIBOT Genie&#8209;02 robot. The videos show the final Rollback policies.</p>
     </div>
     <!-- new demo footage (shoot of 10-24/25) replaces these three clips -->
     <div class="tasks">
@@ -440,7 +440,7 @@
         <video src="assets/video/success_block.mp4" poster="assets/video/success_block.jpg" muted loop playsinline data-autoplay></video>
         <div class="body">
           <h3>Block Extraction</h3>
-          <dl class="rule"><dt>Goal</dt><dd>Fully extract the target block from a stacked tower, one block at a time, while the tower stays standing.</dd></dl>
+          <dl class="rule"><dt>Goal</dt><dd>Push the target block out of the tower, one block at a time, without knocking the tower over.</dd></dl>
           <div class="foot"><span class="pill">69.33% success rate</span></div>
         </div>
       </div>
@@ -449,7 +449,7 @@
         <video src="assets/video/success_throw.mp4" poster="assets/video/success_throw.jpg" muted loop playsinline data-autoplay></video>
         <div class="body">
           <h3>Ball Tossing</h3>
-          <dl class="rule"><dt>Goal</dt><dd>Grasp a ball and throw it so that it lands and stays in a bucket on the floor; a single release decides the outcome.</dd></dl>
+          <dl class="rule"><dt>Goal</dt><dd>Pick up the ball and throw it into a bucket on the floor. The ball has to stay in the bucket.</dd></dl>
           <div class="foot"><span class="pill">40.00% success rate</span></div>
         </div>
       </div>
@@ -458,7 +458,7 @@
         <video src="assets/video/success_curling.mp4" poster="assets/video/success_curling.jpg" muted loop playsinline data-autoplay></video>
         <div class="body">
           <h3>Tabletop Curling</h3>
-          <dl class="rule"><dt>Goal</dt><dd>The robot <b>plays second</b> against a human opponent; each delivers two stones toward the house. After all four shots, the robot must win on score, by proximity to the center; later shots can knock stones away.</dd></dl>
+          <dl class="rule"><dt>Goal</dt><dd>The robot <b>plays second</b> against a human, and each side slides two stones. After the four shots, the side with the stone closest to the center wins. Later shots can knock earlier stones away.</dd></dl>
           <div class="foot"><span class="pill">64.44% success rate</span></div>
         </div>
       </div>
@@ -471,13 +471,13 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Method</div>
-      <h2>Rewind, branch, compare, <span class="grad">improve.</span></h2>
-      <p class="lead">The world model (<span class="nw">GE&#8209;Sim 2.0</span>) predicts the three camera views <em>and</em> the robot's proprioceptive state, so the policy sees the same inputs in simulation as on the real robot.</p>
+      <h2>How <span class="grad">Rollback</span> works</h2>
+      <p class="lead">The world model, <span class="nw">GE&#8209;Sim 2.0</span>, predicts the three camera views and the robot's joint states, so the policy gets the same kind of input in simulation as on the real robot.</p>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="n">01</div><h3>Experience&#8209;backtracking search</h3><p>Starting from real trajectories, restore cached world&#8209;model contexts and branch into alternative action chunks. MCTS concentrates the simulation budget on decisions whose alternatives diverge.</p></div>
-      <div class="step reveal"><div class="n">02</div><h3>Tree&#8209;structured value estimation</h3><p>Siblings share a decision context, so contrasting their subtree outcomes isolates the effect of each action, yielding action&#8209;level labels without a learned value model.</p></div>
-      <div class="step reveal"><div class="n">03</div><h3>World model&ndash;policy <span class="nw">co&#8209;evolution</span></h3><p>The robot keeps collecting real experience asynchronously; it refines the world model, which in turn provides more faithful simulation for the next round.</p></div>
+      <div class="step reveal"><div class="n">01</div><h3>Experience&#8209;backtracking search</h3><p>Starting from real trajectories, the search restores saved world&#8209;model states and tries other action chunks. MCTS spends more of the budget on decisions where different actions lead to different outcomes.</p></div>
+      <div class="step reveal"><div class="n">02</div><h3>Tree&#8209;structured value estimation</h3><p>Sibling branches start from the same state, so comparing their outcomes shows how good each action is. These comparisons become action&#8209;level labels; no value model is trained.</p></div>
+      <div class="step reveal"><div class="n">03</div><h3>World model&ndash;policy <span class="nw">co&#8209;evolution</span></h3><p>The robot keeps collecting data while the policy trains. The new data is used to fine&#8209;tune the world model, so later searches run on a more accurate simulator.</p></div>
     </div>
     <div class="figure reveal"><img src="assets/fig/framework.jpg" width="2834" height="1455" alt="Rollback framework: experience-backtracking search, tree-structured values, world model-policy co-evolution" loading="lazy" style="height:auto"></div>
   </div>
@@ -487,12 +487,12 @@
 <section id="search">
   <div class="wrap">
     <div class="reveal">
-      <div class="kicker">Inside one search</div>
-      <h2>Hover any node to see its rollout.</h2>
+      <div class="kicker">Visualization</div>
+      <h2>A search tree from Tabletop Curling</h2>
       <p class="lead">
-        A real search tree from Tabletop Curling, where the robot plays second. The blue spine is what the robot actually did; every violet branch was generated by
-        the world model after rolling back to an earlier state. Each node is one action chunk (50 control steps at 30&nbsp;Hz).
-        Leave the tree alone and it replays the search step by step.
+        The blue path is an episode recorded on the real robot, which plays second. The violet branches are rollouts in the world model,
+        started from earlier states of that episode. Each node is one action chunk of 50 control steps at 30&nbsp;Hz.
+        Hover over a node to play its video; otherwise the tree replays the search step by step.
       </p>
     </div>
     <div class="explorer reveal">
@@ -522,11 +522,11 @@
 <section id="worldmodel">
   <div class="wrap">
     <div class="reveal">
-      <div class="kicker">Why the world model must keep learning</div>
-      <h2><span class="ib">A frozen world model drifts from reality.</span> <span class="ib">The co&#8209;evolved one keeps pace.</span></h2>
+      <div class="kicker">World model</div>
+      <h2>Frozen vs. co&#8209;evolved world model</h2>
       <p class="lead">
-        We replay the recorded actions of successful real Tabletop Curling episodes (the robot plays second) open&#8209;loop in two world models: the frozen one we start from, and the
-        one co&#8209;evolved with the policy during Rollback training. The actions and the starting frame are the same; only the world model differs.
+        We take successful Tabletop Curling episodes from the real robot (the robot plays second) and replay their recorded actions in two world models:
+        the initial one, kept frozen, and the one updated together with the policy during training. Both start from the same frame and get the same actions.
       </p>
     </div>
     <div class="tabs reveal" role="tablist" id="cmp-tabs">
@@ -556,7 +556,7 @@
       <div class="vcard">
         <span class="badge">World model</span><span class="badge right">Real robot</span>
         <video src="assets/video/wm_vs_real.mp4" poster="assets/video/wm_vs_real.jpg" muted loop playsinline data-autoplay style="aspect-ratio:1024/352"></video>
-        <div class="meta"><h3>Block Extraction, open loop</h3><p>Co&#8209;evolved world&#8209;model prediction next to the real recording under the same action sequence.</p></div>
+        <div class="meta"><h3>Block Extraction, open loop</h3><p>Co&#8209;evolved world model (left) and the real recording (right), with the same actions.</p></div>
       </div>
       <div class="chart-card">
         <div class="kicker" style="margin-bottom:14px">PSNR on Block Extraction</div>
@@ -574,8 +574,8 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Results</div>
-      <h2>Best on all 3 tasks.</h2>
-      <p class="lead">Real&#8209;world success rates (%). All methods start from the same &pi;<sub>0.5</sub> initialization. <span class="nw">RISE w/ GE&#8209;Sim2</span> is our reproduction of RISE on the same world model (<span class="nw">GE&#8209;Sim 2.0</span>), so the comparison isolates backtracking search and tree&#8209;structured supervision.</p>
+      <h2>Best on all 3 tasks</h2>
+      <p class="lead">Real&#8209;world success rates (%). All methods start from the same &pi;<sub>0.5</sub> policy. <span class="nw">RISE w/ GE&#8209;Sim2</span> is our reimplementation of RISE on the same world model, so the gap comes from backtracking search and tree&#8209;structured supervision.</p>
     </div>
     <div class="chart-card reveal">
       <div class="legend"><span><i style="background:#4A4660"></i>Baselines</span><span><i style="background:linear-gradient(90deg,#8B5CF6,#3B8BFF)"></i>Rollback (ours)</span></div>
@@ -606,10 +606,10 @@
 
     <!-- surpassing human players: one column per task, the human video above its training curve -->
     <div class="reveal" id="human">
-      <h3 class="sub-h">Surpassing human players.</h3>
+      <h3 class="sub-h">Surpassing human players</h3>
       <p class="lead">
-        Three human players perform each task by hand under the same initial positions and success criteria.
-        Although Rollback starts from teleoperated demonstrations far below human level, it surpasses the human average on both tasks.
+        Three people played each task by hand, judged by the same success criteria as the robot.
+        Rollback starts from a policy trained on teleoperation data, which is well below human level, and ends above the human average on both tasks.
       </p>
     </div>
     <div class="grid-2">
@@ -770,21 +770,21 @@
       narr.textContent = text || defaultText(n);
     }
     function defaultText(n) {
-      if (n.depth === 0) return 'The initial real observation. Every branch of the tree starts from here.';
-      if (n.real) return 'Recorded from the real robot. The world model caches its context here, so the search can roll back to this point.';
+      if (n.depth === 0) return 'The first real observation. All branches start here.';
+      if (n.real) return 'Recorded on the real robot. The world\u2011model state is saved here, so the search can come back to this point.';
       const d = path(n.id).findIndex(k => !N[k].real) - 1;
-      return 'Rolled out in the world model after rolling back to step ' + N[path(n.id)[d]].depth * 50 + '.' +
-        (n.leaf && n.success != null ? (n.success ? ' The reward model judges this branch a success.' : ' This branch ends in failure.') : '');
+      return 'Rollout in the world model, started from step ' + N[path(n.id)[d]].depth * 50 + '.' +
+        (n.leaf && n.success != null ? (n.success ? ' The reward model labels it a success.' : ' It ends in failure.') : '');
     }
 
     // ------------- guided replay of the search
     const TOUR = [
-      { ids: [0, 1, 4, 11, 18, 25, 34], say: 'The robot executes the current policy in the real world, and this episode succeeds.' },
-      { ids: [5, 12, 19, 28, 37], at: 1, say: 'Rollback restores the world model at step 50 and tries a different action chunk. The simulated push misses.' },
-      { ids: [2, 7, 14, 21, 30, 39], at: 0, say: 'Back to the start: a new branch, entirely in the world model, reaches the house.' },
-      { ids: [8, 15, 22, 31, 40], at: 2, say: 'Its sibling shares the same history up to step 50. Only the next chunk differs, and it fails, so the contrast credits that one decision.' },
-      { ids: [26, 35], at: 18, say: 'Rolling back to step 200, just before the second push: alternatives to the real push fail in the world model.' },
-      { ids: [27, 36], at: 18, say: 'Another alternative from the same state also fails. Against these siblings, the real push at step 200 stands out as the decision that mattered.' },
+      { ids: [0, 1, 4, 11, 18, 25, 34], say: 'The robot runs the current policy, and this episode succeeds.' },
+      { ids: [5, 12, 19, 28, 37], at: 1, say: 'The search goes back to step 50 in the world model and tries another action chunk. This push misses.' },
+      { ids: [2, 7, 14, 21, 30, 39], at: 0, say: 'A new branch from the first state, run entirely in the world model, reaches the house.' },
+      { ids: [8, 15, 22, 31, 40], at: 2, say: 'This branch has the same history up to step 50; only the next chunk is different. It fails, so the difference comes from that chunk.' },
+      { ids: [26, 35], at: 18, say: 'Back to step 200, just before the second push. Other pushes from here fail in the world model.' },
+      { ids: [27, 36], at: 18, say: 'Another push from the same state also fails, so the real push at step 200 is the decision that made the episode succeed.' },
     ];
     let ti = 0, tj = 0, touring = false, timer = null;
     const seen = new Set();
@@ -823,8 +823,8 @@
   // ---------------------------------------------------------------- frozen vs co-evolved
   (function () {
     const NOTES = {
-      559: 'Around step 140 the frozen world model pushes the first stone off the button to the edge of the house, and by the end it has already slid the second stone into the house. The co\u2011evolved model keeps the first stone on the button and the second stone on the sheet, as in the recording.',
-      510: 'The frozen world model stops the first stone at the edge of the house instead of on the button, and by the end it has the second stone in the house early. The co\u2011evolved model matches the recording on both stones.',
+      559: 'Around step 140 the frozen model moves the first stone from the button to the edge of the house, and at the end the second stone is already in the house. In the co\u2011evolved model, as in the recording, the first stone stays on the button and the second stone is still on the sheet.',
+      510: 'The frozen model stops the first stone at the edge of the house instead of on the button, and the second stone reaches the house too early. The co\u2011evolved model matches the recording for both stones.',
     };
     const v = document.getElementById('cmp-v'), note = document.getElementById('cmp-note');
     const tabs = document.querySelectorAll('#cmp-tabs .tab');
@@ -861,7 +861,7 @@
     ours.forEach((v, i) => el('circle', { cx: x(hours[i]), cy: y(v), r: 5, fill: '#0E0C18', stroke: '#8B5CF6', 'stroke-width': 2.5 }));
     rise.forEach((v, i) => el('rect', { x: x(hours[i]) - 4, y: y(v) - 4, width: 8, height: 8, fill: '#0E0C18', stroke: '#3B8BFF', 'stroke-width': 2 }));
     el('text', { x: x(8) - 6, y: y(ours[4]) - 12, 'text-anchor': 'end', style: 'fill:#fff;font-weight:700' }, ours[4].toFixed(2) + '%');
-    el('text', { x: x(cross) - 14, y: y(ours[cross / 2]) - (c.lift || 14), 'text-anchor': 'end', style: 'fill:#FFB547;font-weight:700' }, '★ surpasses humans at ' + cross + ' h');
+    el('text', { x: x(cross) - 14, y: y(ours[cross / 2]) - (c.lift || 14), 'text-anchor': 'end', style: 'fill:#FFB547;font-weight:700' }, '★ above human average at ' + cross + ' h');
     // the two reference lines are labelled in place instead of in the legend
     el('text', { x: L + 6, y: y(human) - 7, style: 'fill:#2FD08A;font-weight:600' }, 'Human players ' + human.toFixed(2));
     el('text', { x: L + 6, y: y(teleop) - 7, style: 'fill:#FFB547;font-weight:600' }, 'Teleoperation ' + teleop.toFixed(2));
