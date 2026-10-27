@@ -68,6 +68,50 @@
   .menu li a { display: block; padding: 8px 12px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
   .menu li a:hover { background: var(--card-2); color: var(--ink); }
 
+  /* ---------- section contents (as on the GE-Act 2.0 page): a fixed column at the left on wide screens,
+     a strip under the top bar on narrow ones; shown once the hero has scrolled away ---------- */
+  .toc {
+    position: fixed; left: 22px; top: 50%; transform: translate(-8px, -50%); z-index: 40; width: 186px;
+    padding: 16px 14px 14px; border-radius: 16px; background: rgba(14,12,24,.72); border: 1px solid var(--line);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s, transform .3s ease;
+  }
+  .toc.show { opacity: 1; visibility: visible; transform: translate(0, -50%); }
+  .toc .cap { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 12px;
+    font: 600 10.5px/1 "JetBrains Mono", monospace; letter-spacing: .16em; color: var(--muted); }
+  .toc .cap b { font: inherit; color: var(--violet-2); }
+  .toc .grp + .grp { margin-top: 10px; }
+  .toc a { display: block; color: var(--muted); transition: color .16s ease; }
+  .toc a.g { display: flex; align-items: baseline; gap: 8px; padding: 4px 2px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+  .toc a.g span { font: 600 10.5px/1 "JetBrains Mono", monospace; color: var(--muted); }
+  .toc a.g.on, .toc a.g.on span { color: var(--violet-2); }
+  /* sub-items hang off a rail; the current one gets a glowing dot on it */
+  .toc a.s { position: relative; margin-left: 9px; padding: 4px 0 4px 16px; border-left: 1px solid var(--line); font-size: 13px; line-height: 1.35; }
+  .toc a.s::before { content: ""; position: absolute; left: -4px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%;
+    background: var(--violet); box-shadow: 0 0 10px var(--violet); transform: scale(0); transition: transform .2s ease; }
+  .toc a.s.on { color: var(--ink); }
+  .toc a.s.on::before { transform: scale(1); }
+  .toc a:hover { color: var(--ink); }
+  .toc .prog { height: 2px; margin: 14px 2px 0; border-radius: 2px; background: var(--line); overflow: hidden; }
+  .toc .prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--violet), var(--blue)); }
+  /* where the side margins are too narrow for the column, narrow the content symmetrically so it stays centred */
+  @media (min-width: 1240px) and (max-width: 1599px) { main { padding: 0 200px; } }
+  @media (max-width: 1239px) {
+    html { scroll-padding-top: 110px; }
+    .toc {
+      top: var(--tb, 58px); left: 0; right: 0; width: auto; transform: none; display: flex; justify-content: center; gap: 4px;
+      padding: 8px 12px; border-radius: 0; border-width: 0 0 1px; box-shadow: none; background: rgba(7,6,13,.86);
+      overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+    }
+    .toc.show { transform: none; }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc .cap, .toc a.s, .toc .prog { display: none; }
+    .toc .grp + .grp { margin-top: 0; }
+    .toc a.g { padding: 5px 12px; border-radius: 999px; font-size: 13px; }
+    .toc a.g.on { background: rgba(139,92,246,.18); color: var(--ink); }
+  }
+  @media (max-width: 640px) { .toc { justify-content: flex-start; } }
+
   /* ---------- hero ---------- */
   .hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
   .hero-bg { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); z-index: -2; }
@@ -94,17 +138,6 @@
   .hero h1 .rw { background: linear-gradient(100deg, #fff 0%, var(--violet-2) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; animation: rewind 6s ease-in-out infinite; transform-origin: 50% 55%; }
   @keyframes rewind { 0%, 70%, 100% { transform: rotate(0); } 80% { transform: rotate(-360deg); } }
   .hero .subtitle { margin: 22px auto 0; max-width: 780px; font-size: clamp(19px, 2.6vw, 26px); line-height: 1.35; font-weight: 500; color: var(--ink-2); text-wrap: balance; }
-  .hero .authors { margin: 24px auto 0; max-width: 860px; color: var(--ink-2); font-size: 15.5px; font-weight: 500; line-height: 1.7; text-wrap: balance; }
-  .hero .authors span { display: inline-block; margin: 0 9px; white-space: nowrap; }
-  .hero .authors .br { display: block; }
-  /* keeps the middle name of the group off either end of a wrapped line */
-  .hero .authors .grp { display: inline-block; white-space: nowrap; font-weight: inherit; }
-  @media (max-width: 760px) { .hero .authors .br { display: none; } }
-  .hero .authors sup, .hero .affil sup { font-size: .68em; color: var(--violet-2); margin-left: 1px; }
-  .hero .affil { margin-top: 8px; color: var(--ink-2); font-size: 15px; font-weight: 600; }
-  .hero .affil span { margin: 0 10px; }
-  .hero .notes { margin-top: 6px; color: var(--muted); font-size: 12.5px; }
-  .hero .notes span { display: inline-block; margin: 0 8px; white-space: nowrap; }
   .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
   .btn {
     display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px; border-radius: 999px;
@@ -146,7 +179,7 @@
   .task video { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #000; }
   .task .body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
   .task h3 { margin: 0 0 2px; font-size: 20px; letter-spacing: -.01em; }
-  .rule { margin: 0; display: grid; grid-template-columns: 76px 1fr; gap: 10px; font-size: 14.5px; line-height: 1.5; }
+  .rule { margin: 0; display: grid; gap: 4px; font-size: 14.5px; line-height: 1.55; }
   .rule dt { font: 600 11.5px/1.9 "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--violet-2); }
   .rule dd { margin: 0; color: var(--ink-2); }
   .task .foot { margin-top: auto; padding-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -259,6 +292,14 @@
   .vcard h3 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
   .vcard .meta p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--muted); }
   .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px; }
+  /* one column per task: the human video above its training curve */
+  .hcol { display: flex; flex-direction: column; gap: 20px; }
+  .hcol .chart-card { margin-top: 0; padding: 22px; }
+  .hcol .line-chart text { font-size: 15px; }
+  .hcol .legend { margin-bottom: 8px; gap: 16px; font-size: 13px; }
+  .sub-h { margin: 70px 0 10px; font-size: clamp(24px, 3vw, 32px); font-weight: 800; letter-spacing: -.025em; }
+  .metrics-cap { margin-top: 26px; font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--violet-2); }
+  .metrics-cap + .metrics { margin-top: 10px; }
 
   footer { margin-top: 80px; padding: 34px 24px 40px; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
 
@@ -304,11 +345,6 @@
     Rollback
   </a>
   <nav class="toplinks">
-    <a class="sec" href="#method">Method</a>
-    <a class="sec" href="#search">Search tree</a>
-    <a class="sec" href="#worldmodel">World model</a>
-    <a class="sec" href="#numbers">Results</a>
-    <span class="sep"></span>
     <a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot</a>
     <a class="wide" href="https://agibot-world.com/" target="_blank" rel="noopener">AgiBot World</a>
     <div class="menu">
@@ -325,6 +361,19 @@
   </nav>
 </header>
 
+<nav class="toc" id="toc" aria-label="On this page">
+  <div class="cap">CONTENTS <b id="toc-pct">0%</b></div>
+  <div class="grp"><a class="g" href="#abstract"><span>01</span>Overview</a>
+    <a class="s" href="#abstract">Core Idea</a><a class="s" href="#results">Tasks</a></div>
+  <div class="grp"><a class="g" href="#method"><span>02</span>Method</a>
+    <a class="s" href="#method">Pipeline</a><a class="s" href="#search">Visualization</a></div>
+  <div class="grp"><a class="g" href="#worldmodel"><span>03</span>World Model</a>
+    <a class="s" href="#worldmodel">Co-evolution</a><a class="s" href="#fidelity">Fidelity</a></div>
+  <div class="grp"><a class="g" href="#numbers"><span>04</span>Results</a>
+    <a class="s" href="#numbers">Benchmark</a><a class="s" href="#human">Human Players</a></div>
+  <div class="prog"><i id="toc-bar"></i></div>
+</nav>
+
 <!-- ======================= HERO ======================= -->
 <div class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
@@ -336,22 +385,14 @@
     <div class="eyebrow"><i></i>AgiBot Research</div>
     <h1>Roll<span class="rw">b</span>ack</h1>
     <div class="subtitle">Experience Backtracking in World Models for Policy Improvement</div>
-    <div class="authors">
-      <span>Jiayi Luo<sup>1,2,*</sup></span><span>Yang Zhang<sup>1,*</sup></span><span>Liliang Chen<sup>1,*,&dagger;</sup></span><span>Nan Wang<sup>1</sup></span><span>Chen Gao<sup>2,3</sup></span><span>Boxiang Qiu<sup>1,2</sup></span><i class="br"></i><span>Zhuoxuan Li<sup>1</sup></span><span>Baorui Peng<sup>1</sup></span>
-      <span>Chuankang Li<sup>1</sup></span><b class="grp"><span>Yuxiang Yan<sup>1</sup></span><span>Si Liu<sup>2</sup></span><span>Qingyun Sun<sup>2</sup></span></b><i class="br"></i><span>Shuicheng Yan<sup>3</sup></span><span>Maoqing Yao<sup>1</sup></span><span>Jianxin Li<sup>2,&loz;</sup></span><span>Guanghui Ren<sup>1,&loz;</sup></span>
-    </div>
-    <div class="affil"><span><sup>1</sup>AgiBot</span><span><sup>2</sup>BUAA</span><span><sup>3</sup>NUS</span></div>
-    <div class="notes"><span>* Equal contribution</span><span>&dagger; Project leader</span><span>&loz; Corresponding author</span></div>
     <div class="links">
-      <a class="btn primary" href="#search">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>See a search unfold
-      </a>
       <span class="btn off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Paper <small>&middot; arXiv soon</small></span>
     </div>
   </div>
   <div class="scroll-cue">Scroll<span></span></div>
 </div>
 
+<main>
 <div class="wrap">
   <div class="stats reveal">
     <div class="stat"><b data-count="10.67" data-prefix="+">+10.67</b><span>pts over the strongest baseline on Block Extraction</span></div>
@@ -369,7 +410,7 @@
     <p class="lead">
       Existing world-model-based methods treat world models as forward-only surrogates of the physical environment.
       Rollback turns them into counterfactual engines: it rolls back to critical decision points, branches into alternative actions,
-      and contrasts their outcomes to attribute success to individual decisions. This concentrates imagination where it matters most and
+      and contrasts their outcomes to attribute success to individual decisions. This concentrates simulation where it matters most and
       distills counterfactual outcomes into fine-grained, action-level supervision without a separately learned value model.
       Real-world experience keeps sharpening the world model, and a sharper world model drives further policy improvement.
     </p>
@@ -385,7 +426,7 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">On the real robot</div>
-      <h2>Three tasks, one physical robot.</h2>
+      <h2>Three real-world tasks.</h2>
       <p class="lead">Final Rollback policies on the dual-arm AGIBOT Genie-02 robot: contact-rich manipulation, precise dynamic control, and competitive play.</p>
     </div>
     <!-- new demo footage (shoot of 10-24/25) replaces these three clips -->
@@ -395,8 +436,7 @@
         <video src="assets/video/success_block.mp4" poster="assets/video/success_block.jpg" muted loop playsinline data-autoplay></video>
         <div class="body">
           <h3>Block Extraction</h3>
-          <dl class="rule"><dt>Goal</dt><dd>Remove the target block from a stacked tower, one block at a time.</dd></dl>
-          <dl class="rule"><dt>Success</dt><dd>The block is fully extracted and the tower stays standing.</dd></dl>
+          <dl class="rule"><dt>Goal</dt><dd>Fully extract the target block from a stacked tower, one block at a time, while the tower stays standing.</dd></dl>
           <div class="foot"><span class="pill">69.33% success</span></div>
         </div>
       </div>
@@ -405,8 +445,7 @@
         <video src="assets/video/success_throw.mp4" poster="assets/video/success_throw.jpg" muted loop playsinline data-autoplay></video>
         <div class="body">
           <h3>Ball Tossing</h3>
-          <dl class="rule"><dt>Goal</dt><dd>Grasp a ball and throw it into a bucket on the floor.</dd></dl>
-          <dl class="rule"><dt>Success</dt><dd>The ball lands and stays in the bucket; a single release decides the outcome.</dd></dl>
+          <dl class="rule"><dt>Goal</dt><dd>Grasp a ball and throw it so that it lands and stays in a bucket on the floor; a single release decides the outcome.</dd></dl>
           <div class="foot"><span class="pill">40.00% success</span></div>
         </div>
       </div>
@@ -415,8 +454,7 @@
         <video src="assets/video/success_curling.mp4" poster="assets/video/success_curling.jpg" muted loop playsinline data-autoplay></video>
         <div class="body">
           <h3>Tabletop Curling</h3>
-          <dl class="rule"><dt>Goal</dt><dd>The robot and a human opponent each deliver two stones toward the house.</dd></dl>
-          <dl class="rule"><dt>Success</dt><dd>Scored after all four shots by proximity to the center; later shots can knock stones away.</dd></dl>
+          <dl class="rule"><dt>Goal</dt><dd>The robot <b>plays second</b> against a human opponent; each delivers two stones toward the house. After all four shots, the robot must win on score, by proximity to the center; later shots can knock stones away.</dd></dl>
           <div class="foot"><span class="pill">64.44% success</span></div>
         </div>
       </div>
@@ -430,12 +468,12 @@
     <div class="reveal">
       <div class="kicker">Method</div>
       <h2>Rewind, branch, compare, <span class="grad">improve.</span></h2>
-      <p class="lead">The world model (GE-Sim 2.0) predicts the three camera views <em>and</em> the robot's proprioceptive state, so the policy sees the same inputs in imagination as on the real robot.</p>
+      <p class="lead">The world model (GE-Sim 2.0) predicts the three camera views <em>and</em> the robot's proprioceptive state, so the policy sees the same inputs in simulation as on the real robot.</p>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="n">01</div><h3>Experience-backtracking search</h3><p>Starting from real trajectories, restore cached world-model contexts and branch into alternative action chunks. MCTS concentrates the imagination budget on decisions whose alternatives diverge.</p></div>
+      <div class="step reveal"><div class="n">01</div><h3>Experience-backtracking search</h3><p>Starting from real trajectories, restore cached world-model contexts and branch into alternative action chunks. MCTS concentrates the simulation budget on decisions whose alternatives diverge.</p></div>
       <div class="step reveal"><div class="n">02</div><h3>Tree-structured value estimation</h3><p>Siblings share a decision context, so contrasting their subtree outcomes isolates the effect of each action, yielding action-level labels without a learned value model.</p></div>
-      <div class="step reveal"><div class="n">03</div><h3>World model&ndash;policy co-evolution</h3><p>The robot keeps collecting real experience asynchronously; it refines the world model, which in turn provides more faithful imagination for the next round.</p></div>
+      <div class="step reveal"><div class="n">03</div><h3>World model&ndash;policy co-evolution</h3><p>The robot keeps collecting real experience asynchronously; it refines the world model, which in turn provides more faithful simulation for the next round.</p></div>
     </div>
     <div class="figure reveal"><img src="assets/fig/framework.jpg" width="2834" height="1455" alt="Rollback framework: experience-backtracking search, tree-structured values, world model-policy co-evolution" loading="lazy" style="height:auto"></div>
     <div class="caption">Overview of Rollback.</div>
@@ -447,19 +485,19 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Inside one search</div>
-      <h2>Hover any node to see what the world model imagined.</h2>
+      <h2>Hover any node to see its rollout.</h2>
       <p class="lead">
-        A real search tree from Tabletop Curling. The blue spine is what the robot actually did; every violet branch was generated by
+        A real search tree from Tabletop Curling, where the robot plays second. The blue spine is what the robot actually did; every violet branch was generated by
         the world model after rolling back to an earlier state. Each node is one action chunk (50 control steps at 30&nbsp;Hz).
         Leave the tree alone and it replays the search step by step.
       </p>
     </div>
     <div class="explorer reveal">
       <div class="tree-card">
-        <svg id="tree" viewBox="0 0 640 400" role="img" aria-label="Search tree with real and imagined branches"></svg>
+        <svg id="tree" viewBox="0 0 640 400" role="img" aria-label="Search tree with real-robot and world-model rollouts"></svg>
         <div class="tree-legend">
-          <span><i style="border-color:var(--blue)"></i>real robot</span>
-          <span><i style="border-color:var(--violet);border-top-style:dashed"></i>world-model imagination</span>
+          <span><i style="border-color:var(--blue)"></i>Rollout in real robot</span>
+          <span><i style="border-color:var(--violet);border-top-style:dashed"></i>Rollout in world model</span>
           <span><b class="ok">&#10003;</b>success</span>
           <span><b class="no">&#10007;</b>failure</span>
         </div>
@@ -474,7 +512,7 @@
         </div>
       </div>
     </div>
-    <p class="hint reveal">Imagined outcomes are judged by the GE-Sim 2.0 world judge (the reward model); only the blue spine was executed on the robot.</p>
+    <p class="hint reveal">Outcomes of world-model rollouts are judged by the GE-Sim 2.0 world judge (the reward model); only the blue spine was executed on the robot.</p>
   </div>
 </section>
 
@@ -485,14 +523,14 @@
       <div class="kicker">Why the world model must keep learning</div>
       <h2>A frozen world model drifts from reality. The co-evolved one keeps pace.</h2>
       <p class="lead">
-        We replay the recorded actions of successful real Tabletop Curling episodes open-loop in two world models: the frozen one we start from, and the
+        We replay the recorded actions of successful real Tabletop Curling episodes (the robot plays second) open-loop in two world models: the frozen one we start from, and the
         one co-evolved with the policy during Rollback training. Same actions, same starting frame &mdash; only the world model differs.
       </p>
     </div>
     <div class="tabs reveal" role="tablist" id="cmp-tabs">
-      <button class="tab" role="tab" aria-selected="true" data-k="559">Episode A</button>
-      <button class="tab" role="tab" aria-selected="false" data-k="494">Episode B</button>
-      <button class="tab" role="tab" aria-selected="false" data-k="510">Episode C</button>
+      <button class="tab" role="tab" aria-selected="true" data-k="559">Case 1</button>
+      <button class="tab" role="tab" aria-selected="false" data-k="494">Case 2</button>
+      <button class="tab" role="tab" aria-selected="false" data-k="510">Case 3</button>
     </div>
     <div class="cmp reveal">
       <div class="swipe">Swipe sideways to see all three &rarr;</div>
@@ -506,13 +544,14 @@
       </div></div>
       <p class="note" id="cmp-note"></p>
     </div>
+    <div class="metrics-cap reveal">World model before &rarr; after co-evolution</div>
     <div class="metrics reveal">
-      <div class="metric"><b>19.52 <em>&rarr;</em> 12.96</b><span>open-loop RGB L1 error, lower on all 64 validation episodes</span></div>
-      <div class="metric"><b>1.90&times; <em>vs</em> 1.38&times;</b><span>error growth from the first to the last quarter of a rollout (frozen vs co-evolved)</span></div>
-      <div class="metric"><b>26.67% <em>vs</em> 40.00%</b><span>final Ball Tossing success with a frozen vs co-evolved world model</span></div>
+      <div class="metric"><b>19.52 <em>&rarr;</em> 12.96</b><span>open-loop RGB L1 error before &rarr; after co-evolution, lower on all 64 validation episodes</span></div>
+      <div class="metric"><b>1.90&times; <em>&rarr;</em> 1.38&times;</b><span>error growth from the first to the last quarter of a rollout, before &rarr; after co-evolution</span></div>
+      <div class="metric"><b>26.67% <em>&rarr;</em> 40.00%</b><span>final Ball Tossing success with the world model frozen (before) vs co-evolved (after)</span></div>
     </div>
 
-    <div class="two reveal">
+    <div class="two reveal" id="fidelity">
       <div class="vcard">
         <span class="badge">left: world model &middot; right: real</span>
         <video src="assets/video/wm_vs_real.mp4" poster="assets/video/wm_vs_real.jpg" muted loop playsinline data-autoplay style="aspect-ratio:1024/352"></video>
@@ -534,7 +573,7 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Results</div>
-      <h2>Best on every task.</h2>
+      <h2>Best on all 3 tasks.</h2>
       <p class="lead">Real-world success rates (%). All methods start from the same &pi;<sub>0.5</sub> initialization. RISE w/ GE-Sim2 is our reproduction of RISE on the same world model (GE-Sim 2.0), so the comparison isolates backtracking search and tree-structured supervision.</p>
     </div>
     <div class="chart-card reveal">
@@ -564,31 +603,16 @@
       </div>
     </div>
 
-    <div class="chart-card line-chart reveal">
-      <div class="legend">
-        <span><i style="background:#8B5CF6"></i>Rollback (ours)</span>
-        <span><i style="background:#3B8BFF"></i>RISE w/ GE-Sim2</span>
-        <span><i style="background:#2FD08A"></i>Human players</span>
-        <span><i style="background:#FFB547"></i>Teleoperation</span>
-      </div>
-      <h4 style="margin:0 0 6px;font-size:15px">Ball Tossing &middot; real-world success rate during training</h4>
-      <svg viewBox="0 0 720 300" id="curve"></svg>
-    </div>
-  </div>
-</section>
-
-<!-- ======================= 7. HUMAN ======================= -->
-<section id="human">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="kicker">Robot vs. human</div>
-      <h2>Surpassing human players.</h2>
+    <!-- surpassing human players: one column per task, the human video above its training curve -->
+    <div class="reveal" id="human">
+      <h3 class="sub-h">Surpassing human players.</h3>
       <p class="lead">
         Three human players perform each task by hand under the same initial positions and success criteria.
         Although Rollback starts from teleoperated demonstrations far below human level, it surpasses the human average on both tasks.
       </p>
     </div>
     <div class="grid-2">
+      <div class="hcol">
       <div class="vcard reveal"><span class="badge">human player</span>
         <video src="assets/video/human_throw.mp4" poster="assets/video/human_throw.jpg" muted loop playsinline data-autoplay style="aspect-ratio:4/3;object-fit:cover"></video>
         <div class="meta"><h3>Ball Tossing</h3>
@@ -596,6 +620,13 @@
           <div class="bar"><span class="lbl">Human</span><div class="track"><div class="fill" data-w="31.48" data-max="45" style="background:#2FD08A"></div></div><span class="val">31.48</span></div>
           <div class="bar ours"><span class="lbl">Rollback</span><div class="track"><div class="fill" data-w="40.00" data-max="45"></div></div><span class="val">40.00</span></div>
         </div></div>
+      <div class="chart-card line-chart reveal">
+        <h4 style="margin:0 0 10px;font-size:15px">Ball Tossing &middot; real-world success rate during training</h4>
+        <div class="legend"><span><i style="background:#8B5CF6"></i>Rollback (ours)</span><span><i style="background:#3B8BFF"></i>RISE w/ GE-Sim2</span></div>
+        <svg viewBox="0 0 560 300" id="curve-throw"></svg>
+      </div>
+      </div>
+      <div class="hcol">
       <div class="vcard reveal"><span class="badge">human player</span>
         <video src="assets/video/human_curling.mp4" poster="assets/video/human_curling.jpg" muted loop playsinline data-autoplay style="aspect-ratio:4/3;object-fit:cover"></video>
         <div class="meta"><h3>Tabletop Curling</h3>
@@ -603,9 +634,16 @@
           <div class="bar"><span class="lbl">Human</span><div class="track"><div class="fill" data-w="58.39" data-max="70" style="background:#2FD08A"></div></div><span class="val">58.39</span></div>
           <div class="bar ours"><span class="lbl">Rollback</span><div class="track"><div class="fill" data-w="64.44" data-max="70"></div></div><span class="val">64.44</span></div>
         </div></div>
+      <div class="chart-card line-chart reveal">
+        <h4 style="margin:0 0 10px;font-size:15px">Tabletop Curling &middot; real-world success rate during training</h4>
+        <div class="legend"><span><i style="background:#8B5CF6"></i>Rollback (ours)</span><span><i style="background:#3B8BFF"></i>RISE w/ GE-Sim2</span></div>
+        <svg viewBox="0 0 560 300" id="curve-curling"></svg>
+      </div>
+      </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer>&copy; 2026 Rollback &middot; AgiBot Research</footer>
 
@@ -707,7 +745,7 @@
 
     function label(n) {
       if (n.depth === 0) return 'Initial real state';
-      return (n.real ? 'Real robot' : 'Imagined') + ', steps ' + n.steps[0] + ' to ' + n.steps[1];
+      return (n.real ? 'Rollout in real robot' : 'Rollout in world model') + ', steps ' + n.steps[0] + ' to ' + n.steps[1];
     }
     function path(id) { const p = []; for (let k = id; k != null; k = N[k].parent) p.unshift(k); return p; }
 
@@ -724,7 +762,7 @@
         const p = tv.play(); if (p) p.catch(() => {});
       } else { tv.pause(); tv.removeAttribute('src'); tv.style.visibility = 'hidden'; }
       const c = [];
-      c.push(n.real ? '<span class="chip real">real robot</span>' : '<span class="chip imag">world model</span>');
+      c.push(n.real ? '<span class="chip real">Rollout in real robot</span>' : '<span class="chip imag">Rollout in world model</span>');
       c.push('<span class="chip">' + (n.depth ? 'steps ' + n.steps[0] + '–' + n.steps[1] : 'step 0') + '</span>');
       if (n.leaf && n.success != null) c.push(n.success ? '<span class="chip ok">✓ success</span>' : '<span class="chip no">✗ failure</span>');
       chips.innerHTML = c.join('');
@@ -734,17 +772,17 @@
       if (n.depth === 0) return 'The initial real observation. Every branch of the tree starts from here.';
       if (n.real) return 'Recorded from the real robot. The world model caches its context here, so the search can roll back to this point.';
       const d = path(n.id).findIndex(k => !N[k].real) - 1;
-      return 'Imagined by the world model after rolling back to step ' + N[path(n.id)[d]].depth * 50 + '.' +
+      return 'Rolled out in the world model after rolling back to step ' + N[path(n.id)[d]].depth * 50 + '.' +
         (n.leaf && n.success != null ? (n.success ? ' The reward model judges this branch a success.' : ' This branch ends in failure.') : '');
     }
 
     // ------------- guided replay of the search
     const TOUR = [
       { ids: [0, 1, 4, 11, 18, 25, 34], say: 'The robot executes the current policy in the real world, and this episode succeeds.' },
-      { ids: [5, 12, 19, 28, 37], at: 1, say: 'Rollback restores the world model at step 50 and tries a different action chunk. The imagined push misses.' },
-      { ids: [2, 7, 14, 21, 30, 39], at: 0, say: 'Back to the start: a new branch, entirely in imagination, reaches the house.' },
+      { ids: [5, 12, 19, 28, 37], at: 1, say: 'Rollback restores the world model at step 50 and tries a different action chunk. The simulated push misses.' },
+      { ids: [2, 7, 14, 21, 30, 39], at: 0, say: 'Back to the start: a new branch, entirely in the world model, reaches the house.' },
       { ids: [8, 15, 22, 31, 40], at: 2, say: 'Its sibling shares the same history up to step 50. Only the next chunk differs, and it fails, so the contrast credits that one decision.' },
-      { ids: [26, 35], at: 18, say: 'Rolling back to step 200, just before the second push: alternatives to the real push fail in imagination.' },
+      { ids: [26, 35], at: 18, say: 'Rolling back to step 200, just before the second push: alternatives to the real push fail in the world model.' },
       { ids: [27, 36], at: 18, say: 'Another alternative from the same state also fails. Against these siblings, the real push at step 200 stands out as the decision that mattered.' },
     ];
     let ti = 0, tj = 0, touring = false, timer = null;
@@ -802,19 +840,17 @@
     note.textContent = NOTES[559][1];
   })();
 
-  // Ball Tossing training curve (measured)
-  (function () {
-    const svg = document.getElementById('curve');
-    const W = 720, H = 300, L = 48, R = 20, T = 16, B = 40;
+  // training curves against human players (measured), one per task
+  function curve(id, c) {
+    const svg = document.getElementById(id);
+    const W = 560, H = 300, L = 44, R = 16, T = 16, B = 40;
     const hours = [0, 2, 4, 6, 8];
-    const ours = [25.56, 26.67, 28.89, 33.33, 40.00];
-    const rise = [25.56, 24.44, 27.78, 26.67, 28.89];
-    const human = 31.48, teleop = 16.53, ymin = 12, ymax = 44;
+    const { ours, rise, human, teleop, ymin, ymax, ticks, cross } = c;
     const x = h => L + (W - L - R) * h / 8;
     const y = v => T + (H - T - B) * (1 - (v - ymin) / (ymax - ymin));
     const ns = 'http://www.w3.org/2000/svg';
     const el = (tag, attrs, text) => { const n = document.createElementNS(ns, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (text != null) n.textContent = text; svg.appendChild(n); return n; };
-    for (let v = 15; v <= 40; v += 5) { el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), class: 'grid' }); el('text', { x: L - 10, y: y(v) + 4, 'text-anchor': 'end' }, v); }
+    for (const v of ticks) { el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), class: 'grid' }); el('text', { x: L - 10, y: y(v) + 4, 'text-anchor': 'end' }, v); }
     hours.forEach(h => el('text', { x: x(h), y: H - B + 22, 'text-anchor': 'middle' }, h + ' h'));
     el('line', { x1: L, x2: W - R, y1: H - B, y2: H - B, class: 'axis' });
     el('line', { x1: L, x2: W - R, y1: y(human), y2: y(human), stroke: '#2FD08A', 'stroke-width': 2, 'stroke-dasharray': '7 6' });
@@ -824,8 +860,32 @@
     el('path', { d: d(ours), class: 'path draw', stroke: '#8B5CF6', style: 'filter:drop-shadow(0 0 8px rgba(139,92,246,.7))' });
     ours.forEach((v, i) => el('circle', { cx: x(hours[i]), cy: y(v), r: 5, fill: '#0E0C18', stroke: '#8B5CF6', 'stroke-width': 2.5 }));
     rise.forEach((v, i) => el('rect', { x: x(hours[i]) - 4, y: y(v) - 4, width: 8, height: 8, fill: '#0E0C18', stroke: '#3B8BFF', 'stroke-width': 2 }));
-    el('text', { x: x(8) - 6, y: y(40) - 12, 'text-anchor': 'end', style: 'fill:#fff;font-weight:700' }, '40.00%');
-    el('text', { x: x(6) - 14, y: y(33.33) - 14, 'text-anchor': 'end', style: 'fill:#FFB547;font-weight:700' }, '★ surpasses humans at 6 h');
+    el('text', { x: x(8) - 6, y: y(ours[4]) - 12, 'text-anchor': 'end', style: 'fill:#fff;font-weight:700' }, ours[4].toFixed(2) + '%');
+    el('text', { x: x(cross) - 14, y: y(ours[cross / 2]) - (c.lift || 14), 'text-anchor': 'end', style: 'fill:#FFB547;font-weight:700' }, '★ surpasses humans at ' + cross + ' h');
+    // the two reference lines are labelled in place instead of in the legend
+    el('text', { x: L + 6, y: y(human) - 7, style: 'fill:#2FD08A;font-weight:600' }, 'Human players ' + human.toFixed(2));
+    el('text', { x: L + 6, y: y(teleop) - 7, style: 'fill:#FFB547;font-weight:600' }, 'Teleoperation ' + teleop.toFixed(2));
+  }
+  curve('curve-throw', { ours: [25.56, 26.67, 28.89, 33.33, 40.00], rise: [25.56, 24.44, 27.78, 26.67, 28.89],
+    human: 31.48, teleop: 16.53, ymin: 12, ymax: 44, ticks: [15, 20, 25, 30, 35, 40], cross: 6 });
+  curve('curve-curling', { ours: [51.11, 56.30, 60.00, 62.22, 64.44], rise: [51.11, 48.89, 49.63, 51.11, 52.59],
+    human: 58.39, teleop: 38.94, ymin: 35, ymax: 68, ticks: [40, 45, 50, 55, 60, 65], cross: 4, lift: 34 });
+
+  // section contents: shown once the hero is gone, the current section highlighted
+  (function () {
+    const toc = document.getElementById('toc'), subs = [...toc.querySelectorAll('a.s')];
+    const secs = subs.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+    const pct = document.getElementById('toc-pct'), prog = document.getElementById('toc-bar');
+    const upd = () => {
+      document.documentElement.style.setProperty('--tb', bar.offsetHeight + 'px');
+      toc.classList.toggle('show', secs[0].getBoundingClientRect().top <= 300);
+      let cur = -1; secs.forEach((s, i) => { if (s.getBoundingClientRect().top <= 170) cur = i; });
+      subs.forEach((a, i) => a.classList.toggle('on', i === cur));
+      toc.querySelectorAll('.grp').forEach(g => g.querySelector('a.g').classList.toggle('on', !!g.querySelector('a.s.on')));
+      const k = Math.max(0, Math.min(1, scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)));
+      prog.style.width = (100 * k) + '%'; pct.textContent = Math.round(100 * k) + '%';
+    };
+    addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
   })();
 </script>
 </body>
