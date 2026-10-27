@@ -114,15 +114,39 @@
 
   /* ---------- hero ---------- */
   .hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; isolation: isolate; }
-  .hero-bg { position: absolute; inset: 0; z-index: -2; }
-  .hero-bg video { width: 100%; height: 100%; object-fit: cover; filter: brightness(.82); }
-  .hero::before {
-    content: ""; position: absolute; inset: 0; z-index: -1;
-    background:
-      radial-gradient(45% 38% at 50% 45%, rgba(7,6,13,.5), rgba(7,6,13,.12) 100%),
-      linear-gradient(180deg, rgba(7,6,13,.25) 0%, rgba(7,6,13,0) 30%, rgba(7,6,13,.15) 70%, var(--bg) 100%);
+  /* blurred, enlarged frame of the highlighted game behind everything */
+  .hero-bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: var(--bg); }
+  .hero-bg img { position: absolute; inset: -8%; width: 116%; height: 116%; object-fit: cover; opacity: 0;
+    filter: blur(34px) brightness(.6) saturate(1.15); transition: opacity 1.2s ease; }
+  .hero-bg img.on { opacity: 1; }
+  /* the three games, uncropped and playing together; the highlighted one is lifted */
+  .reel { margin: 44px auto 0; width: min(1240px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .clip { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #000; cursor: pointer;
+    border: 1px solid rgba(255,255,255,.14); box-shadow: 0 20px 50px rgba(0,0,0,.45); opacity: .8; transform: scale(.97);
+    transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .7s, box-shadow .7s, border-color .7s; }
+  .clip.on { opacity: 1; transform: scale(1.04); border-color: rgba(183,156,255,.75);
+    box-shadow: 0 0 0 1px rgba(139,92,246,.45), 0 26px 70px rgba(139,92,246,.35); }
+  .clip video { width: 100%; height: 100%; object-fit: cover; }
+  .plabel { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+    border-radius: 999px; font: 600 13px/1 "Inter", sans-serif; color: #fff; background: rgba(7,6,13,.6);
+    border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(6px); white-space: nowrap; }
+  .plabel i { width: 7px; height: 7px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 10px var(--violet); }
+  .clip .bar-t { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--violet), var(--blue));
+    transform: scaleX(0); transform-origin: left; }
+  .clip.on .bar-t { animation: fill 8s linear forwards; }
+  @keyframes fill { to { transform: scaleX(1); } }
+  @media (max-width: 760px) {
+    .reel { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 6px 2px 10px; }
+    .reel::-webkit-scrollbar { display: none; }
+    .clip { flex: 0 0 84%; scroll-snap-align: center; transform: none; }
+    .clip.on { transform: none; }
   }
-  .hero-inner { text-align: center; padding: 120px 24px 100px; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(7,6,13,.35) 0%, rgba(7,6,13,0) 35%, rgba(7,6,13,.1) 75%, var(--bg) 100%);
+  }
+  .hero-inner { width: 100%; text-align: center; padding: 104px 24px 120px; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
     font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
@@ -131,7 +155,7 @@
   .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 12px var(--violet); animation: pulse 2s infinite; }
   @keyframes pulse { 50% { opacity: .35; } }
   .hero h1 {
-    margin: 22px 0 0; font-size: clamp(56px, 11vw, 132px); line-height: .95; font-weight: 900; letter-spacing: -.045em;
+    margin: 22px 0 0; font-size: clamp(52px, 8.5vw, 108px); line-height: .95; font-weight: 900; letter-spacing: -.045em;
     background: linear-gradient(100deg, #fff 20%, var(--violet-2) 55%, var(--blue) 90%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
@@ -383,7 +407,7 @@
 <!-- ======================= HERO ======================= -->
 <div class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
-    <video src="assets/video/hero.mp4" poster="assets/video/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
+    <img class="on" src="assets/video/hero_jenga.jpg" alt=""><img src="assets/video/hero_curling.jpg" alt=""><img src="assets/video/hero_throw.jpg" alt="">
   </div>
   <div class="hero-inner">
     <div class="eyebrow"><i></i>AgiBot Research</div>
@@ -392,8 +416,12 @@
     <div class="links">
       <span class="btn off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Paper <small>&middot; coming soon</small></span>
     </div>
+    <div class="reel">
+      <div class="clip on"><video src="assets/video/hero_jenga.mp4" poster="assets/video/hero_jenga.jpg" autoplay muted loop playsinline></video><span class="plabel"><i></i>Jenga Game</span><span class="bar-t"></span></div>
+      <div class="clip"><video src="assets/video/hero_curling.mp4" poster="assets/video/hero_curling.jpg" autoplay muted loop playsinline></video><span class="plabel"><i></i>Tabletop Curling Game</span><span class="bar-t"></span></div>
+      <div class="clip"><video src="assets/video/hero_throw.mp4" poster="assets/video/hero_throw.jpg" autoplay muted loop playsinline></video><span class="plabel"><i></i>Ball Tossing Game</span><span class="bar-t"></span></div>
+    </div>
   </div>
-  <div class="scroll-cue">Scroll<span></span></div>
 </div>
 
 <main>
@@ -670,6 +698,26 @@
     }
   }, { threshold: 0.25 });
   document.querySelectorAll('video[data-autoplay]').forEach(v => vio.observe(v));
+
+  // hero clips: highlight one game at a time, every 8 s, or the one under the pointer / tapped
+  (function () {
+    const reel = document.querySelector(".reel"), cs = [...reel.querySelectorAll(".clip")];
+    const bgs = [...document.querySelectorAll(".hero-bg img")];
+    let k = 0, timer = null;
+    const on = (i, scroll) => {
+      k = i; cs.forEach((c, j) => c.classList.toggle("on", j === i)); bgs.forEach((b, j) => b.classList.toggle("on", j === i));
+      // on phones the strip scrolls sideways: bring the highlighted clip to the middle
+      if (scroll && reel.scrollWidth > reel.clientWidth + 4)
+        reel.scrollTo({ left: cs[i].offsetLeft - (reel.clientWidth - cs[i].clientWidth) / 2, behavior: "smooth" });
+    };
+    const auto = () => { clearInterval(timer); timer = setInterval(() => on((k + 1) % cs.length, true), 8000); };
+    cs.forEach((c, i) => {
+      c.addEventListener("mouseenter", () => { clearInterval(timer); on(i); });
+      c.addEventListener("click", () => { on(i); auto(); });
+    });
+    reel.addEventListener("mouseleave", auto);
+    auto();
+  })();
 
   // top bar turns solid after the hero
   const bar = document.getElementById('topbar');
