@@ -802,10 +802,12 @@
       if (tj === 0 && s.at != null) { markSeen(s.at); }
       const id = s.ids[tj];
       path(id).forEach(k => { if (N[k].real || seen.has(k) || k === id) markSeen(k); });
-      show(id, s.say, false);
-      // real-world clips play at 4x so the replay gets to the world-model branches quickly
-      rate(N[id].real ? 4 : 1);
-      if (!N[id].clip) { timer = setTimeout(advance, 300); }
+      show(id, s.say, false); rate(1);
+      // the real-world spine flashes past: only each node's first frame, 0.15 s apiece
+      if (N[id].real || !N[id].clip) {
+        tv.pause(); tv.style.visibility = 'hidden';
+        timer = setTimeout(advance, N[id].real ? 150 : 300);
+      }
     }
     function advance() { if (!touring) return; tj++; if (tj >= TOUR[ti].ids.length) { ti++; tj = 0; timer = setTimeout(stepTour, 500); } else stepTour(); }
     tv.addEventListener('ended', () => { if (touring) advance(); });
