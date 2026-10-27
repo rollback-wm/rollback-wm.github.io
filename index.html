@@ -370,7 +370,7 @@
 <nav class="toc" id="toc" aria-label="On this page">
   <div class="cap">CONTENTS <b id="toc-pct">0%</b></div>
   <div class="grp"><a class="g" href="#abstract"><span>01</span>Overview</a>
-    <a class="s" href="#abstract">Core Idea</a><a class="s" href="#results">Tasks</a></div>
+    <a class="s" href="#abstract">Core Idea</a><a class="s" href="#results">Games</a></div>
   <div class="grp"><a class="g" href="#method"><span>02</span>Method</a>
     <a class="s" href="#method">Pipeline</a><a class="s" href="#search">Visualization</a></div>
   <div class="grp"><a class="g" href="#worldmodel"><span>03</span>World Model</a>
@@ -429,9 +429,9 @@
 <section id="results">
   <div class="wrap">
     <div class="reveal">
-      <div class="kicker">Tasks</div>
-      <h2>Three real&#8209;world tasks</h2>
-      <p class="lead">All tasks run on the dual&#8209;arm AGIBOT Genie&#8209;02 robot. The videos show the final Rollback policies.</p>
+      <div class="kicker">Games</div>
+      <h2>Three real&#8209;world games</h2>
+      <p class="lead">All games are played by the dual&#8209;arm AGIBOT Genie&#8209;02 robot. The videos show the final Rollback policies.</p>
     </div>
     <!-- new demo footage (shoot of 10-24/25) replaces these three clips -->
     <div class="tasks">
@@ -574,7 +574,7 @@
   <div class="wrap">
     <div class="reveal">
       <div class="kicker">Results</div>
-      <h2>Best on all 3 tasks</h2>
+      <h2>Best on all 3 games</h2>
       <p class="lead">Real&#8209;world success rates (%). All methods start from the same &pi;<sub>0.5</sub> policy. <span class="nw">RISE w/ GE&#8209;Sim2</span> is our reimplementation of RISE on the same world model, so the gap comes from backtracking search and tree&#8209;structured supervision.</p>
     </div>
     <div class="chart-card reveal">
@@ -608,8 +608,8 @@
     <div class="reveal" id="human">
       <h3 class="sub-h">Surpassing human players</h3>
       <p class="lead">
-        Three people played each task by hand, judged by the same success criteria as the robot.
-        Rollback starts from a policy trained on teleoperation data, which is well below human level, and ends above the human average on both tasks. Each video shows a human player first, then the robot with Rollback.
+        Three people played each game by hand, judged by the same success criteria as the robot.
+        Rollback starts from a policy trained on teleoperation data, which is well below human level, and ends above the human average in both games. Each video shows a human player first, then the robot with Rollback.
       </p>
     </div>
     <div class="grid-2">
@@ -800,10 +800,14 @@
       if (ti >= TOUR.length) { svg.classList.remove('dim'); timer = setTimeout(startTour, 2500); return; }
       const s = TOUR[ti];
       if (tj === 0 && s.at != null) { markSeen(s.at); }
+      // nodes without a clip are still frames (the real-world spine): reveal them all at once instead of one by one
+      while (tj < s.ids.length - 1 && !N[s.ids[tj]].clip) {
+        const k0 = s.ids[tj]; path(k0).forEach(k => { if (N[k].real || seen.has(k) || k === k0) markSeen(k); }); tj++;
+      }
       const id = s.ids[tj];
       path(id).forEach(k => { if (N[k].real || seen.has(k) || k === id) markSeen(k); });
       show(id, s.say, false);
-      if (!N[id].clip) { timer = setTimeout(advance, 300); }
+      if (!N[id].clip) { timer = setTimeout(advance, 1200); }
     }
     function advance() { if (!touring) return; tj++; if (tj >= TOUR[ti].ids.length) { ti++; tj = 0; timer = setTimeout(stepTour, 500); } else stepTour(); }
     tv.addEventListener('ended', () => { if (touring) advance(); });
